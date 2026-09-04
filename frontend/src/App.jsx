@@ -2,18 +2,37 @@ import React, { useState } from 'react';
 import { UploadCloud, Activity, BarChart2, MessageSquare, AlertCircle, CheckCircle, ShieldAlert, Heart, Zap, Clock } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from 'recharts';
 
-// Simple mockup for auth
+// Simple mockup for auth with LocalStorage registration
 function LoginScreen({ onLogin }) {
+  const [isRegistering, setIsRegistering] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  const handleLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (username === 'admin' && password === 'admin123') {
-      onLogin();
+    setError('');
+    setSuccess('');
+
+    if (isRegistering) {
+      if (username.length < 3 || password.length < 3) {
+        setError("Username and password must be at least 3 characters.");
+        return;
+      }
+      // Save credentials locally for the demo
+      localStorage.setItem(`user_${username}`, password);
+      setSuccess("Account created! You can now log in.");
+      setIsRegistering(false);
+      setPassword('');
     } else {
-      setError('Wrong credentials. Please try again.');
+      const savedPassword = localStorage.getItem(`user_${username}`);
+      // Allow default admin OR local storage users
+      if ((username === 'admin' && password === 'admin123') || (savedPassword && savedPassword === password)) {
+        onLogin();
+      } else {
+        setError('Wrong credentials. Please try again.');
+      }
     }
   };
 
@@ -21,15 +40,20 @@ function LoginScreen({ onLogin }) {
     <div className="min-h-screen flex items-center justify-center bg-ai-dark p-4">
       <div className="bg-ai-card backdrop-blur-glass p-8 rounded-2xl shadow-glass border border-white/10 max-w-md w-full">
         <h1 className="text-3xl font-bold text-center mb-2 text-white">CallSense <span className="text-ai-cyan">AI</span></h1>
-        <p className="text-gray-400 text-center mb-8">Agentic Conversation Intelligence</p>
+        <p className="text-gray-400 text-center mb-6">Agentic Conversation Intelligence</p>
         
         {error && (
           <div className="mb-4 text-red-400 bg-red-400/10 p-3 rounded-lg border border-red-400/20 text-sm text-center">
             {error}
           </div>
         )}
+        {success && (
+          <div className="mb-4 text-green-400 bg-green-400/10 p-3 rounded-lg border border-green-400/20 text-sm text-center">
+            {success}
+          </div>
+        )}
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <input 
               type="text" 
@@ -52,9 +76,18 @@ function LoginScreen({ onLogin }) {
             type="submit"
             className="w-full bg-glass-gradient border border-ai-cyan/30 text-ai-cyan hover:bg-ai-cyan hover:text-black font-semibold py-3 rounded-lg transition-all duration-300 shadow-neon mt-2"
           >
-            Authenticate to Dashboard
+            {isRegistering ? "Create Account" : "Authenticate to Dashboard"}
           </button>
         </form>
+
+        <div className="mt-6 text-center">
+          <button 
+            onClick={() => { setIsRegistering(!isRegistering); setError(''); setSuccess(''); }}
+            className="text-gray-400 hover:text-white text-sm transition-colors"
+          >
+            {isRegistering ? "Already have an account? Log in" : "Need an account? Create one"}
+          </button>
+        </div>
       </div>
     </div>
   );
