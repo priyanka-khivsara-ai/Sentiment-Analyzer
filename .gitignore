@@ -1,0 +1,40 @@
+# ==========================================
+# Environments & Secrets
+# ==========================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.venv
+venv/
+ENV/
+
+# ==========================================
+# Python Backend
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ==========================================
+# Node / React Frontend
+# ==========================================
+node_modules/
+dist/
+build/
+.npm
+.eslintcache
+.vite
+
+# ==========================================
+# IDEs and OS Files
+# ==========================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
