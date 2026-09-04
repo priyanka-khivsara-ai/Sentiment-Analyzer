@@ -3,7 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from n8n_client import call_n8n_webhook
+from dotenv import load_dotenv
 
+# Load environment variables from .env
+load_dotenv()
 # ==========================================
 # Pydantic Schemas for Structured Output
 # ==========================================
