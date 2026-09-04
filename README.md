@@ -1,21 +1,68 @@
-# Sentiment Analyzer — Intelligent Conversation Intelligence Dashboard
+<div align="center">
+  <h1>🧠 Sentiment Analyzer</h1>
+  <p><strong>Agentic Conversation Intelligence Dashboard</strong></p>
+  
+  ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+  ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+  ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+  ![Groq](https://img.shields.io/badge/Groq-Fast_LLM-f55036?style=for-the-badge)
+</div>
 
-## Overview
-Sentiment Analyzer is a production-ready full-stack application designed to analyze customer service phone conversations. It extracts overall sentiment, sentence-level sentiment, emotional tone, and key performance indicators (KPIs) using an LLM via an n8n orchestration layer.
+<br />
 
-## Architecture
-- **Frontend:** React, Vite, Tailwind CSS, Recharts (Deployed on Vercel/Netlify)
-- **Backend:** Python, FastAPI, Pydantic
-- **AI Orchestration:** n8n
-- **AI Model:** LLM API (e.g., OpenAI, Gemini) via environment variables
+## 🌟 Overview
+**Sentiment Analyzer** is a production-ready, full-stack AI application designed to intelligently analyze customer service phone conversations. By utilizing state-of-the-art LLMs, it extracts deep insights from standard text transcripts and visualizes them on a modern glassmorphism dashboard.
 
-## Flow
-`React Frontend` → `FastAPI Backend` → `n8n Workflow` → `LLM` → `Structured JSON` → `FastAPI Validation` → `React Dashboard`
+### ✨ Key Features
+- **📊 Real-time Sentiment Visuals:** Dynamic Pie Charts mapping the exact distribution of positive, negative, and neutral sentences.
+- **⚡ AI Confidence Scoring:** Evaluates the AI's certainty for every single extracted data point.
+- **🎯 Smart Action Items:** Automatically extracts commitments and next steps from the dialogue.
+- **🎭 Emotion Detection:** Tags the primary emotional states of the speakers (e.g., *frustrated, relieved, grateful*).
+- **📈 Advanced KPIs:** Grades the conversation on Escalation Risk, Agent Helpfulness, and Resolution Likelihood.
 
-## Directory Structure
-- `/frontend` - React/Vite application
-- `/backend` - FastAPI Python backend
-- `/n8n` - n8n workflow exports and schemas
+---
 
-## Getting Started
-(Instructions will be added as components are implemented)
+## 🏗️ Architecture
+
+```mermaid
+graph LR
+    UI[React Frontend] -->|File Upload| API[FastAPI Backend]
+    API -->|Prompt & Data| AI[Groq / Llama 120B]
+    AI -->|Structured JSON| API
+    API -->|Validation| UI
+```
+* **Frontend:** React + Vite + Tailwind CSS + Recharts
+* **Backend:** Python + FastAPI + Pydantic
+* **AI Orchestration:** Dynamic fallback to Groq (`openai/gpt-oss-120b`) for lightning-fast strict JSON output.
+
+---
+
+## 🚀 Quick Start (Local Development)
+
+### 1. Configure the AI
+Create a `.env` file inside the `/backend` folder and add your API key:
+```env
+GROQ_API_KEY=your_api_key_here
+```
+
+### 2. Run the Application
+For Windows users, simply double-click the included `run.bat` file to automatically launch both the backend and frontend simultaneously!
+
+Alternatively, you can run them manually:
+```bash
+# Terminal 1: Backend
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload
+
+# Terminal 2: Frontend
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+<div align="center">
+  <i>Built for next-generation conversation intelligence.</i>
+</div>
