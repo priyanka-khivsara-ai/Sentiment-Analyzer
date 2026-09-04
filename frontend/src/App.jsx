@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UploadCloud, Activity, BarChart2, MessageSquare, AlertCircle, CheckCircle, ShieldAlert, Heart, Zap, Clock } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from 'recharts';
 
 // Simple mockup for auth
 function LoginScreen({ onLogin }) {
@@ -75,15 +75,23 @@ export default function App() {
     setError(null);
   };
 
-  // --- Rendering Helpers for the Dashboard ---
   const renderDashboard = () => {
     if (!results) return null;
 
-    // Chart Data formatting
     const sentimentColors = { positive: '#10B981', negative: '#EF4444', neutral: '#6B7280' };
+
+    // Chart Data formatting: Dynamic Distribution based on ALL sentences
+    const sentimentCounts = { positive: 0, negative: 0, neutral: 0 };
+    (results.sentences || []).forEach(s => {
+      const sent = s.sentiment.toLowerCase();
+      if (sentimentCounts[sent] !== undefined) sentimentCounts[sent]++;
+    });
+
     const pieData = [
-      { name: 'Overall', value: 1, fill: sentimentColors[results.overall_sentiment] }
-    ];
+      { name: 'Positive', value: sentimentCounts.positive, fill: '#10B981' },
+      { name: 'Negative', value: sentimentCounts.negative, fill: '#EF4444' },
+      { name: 'Neutral', value: sentimentCounts.neutral, fill: '#6B7280' }
+    ].filter(d => d.value > 0); // Only show pieces of the pie that actually exist
     
     // Emotion parsing for charts
     const emotionData = results.emotions.map(e => ({ name: e, intensity: Math.random() * 50 + 50 }));
@@ -178,18 +186,33 @@ export default function App() {
           </div>
 
           <div className="bg-ai-card p-6 rounded-xl shadow-glass border border-white/10 flex flex-col items-center justify-center">
-            <h3 className="text-lg font-semibold text-white w-full text-left">Sentiment Visual</h3>
-            <div className="h-48 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie data={pieData} innerRadius={50} outerRadius={70} paddingAngle={5} dataKey="value" stroke="none">
-                    {pieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
-                    ))}
-                  </Pie>
-                  <RechartsTooltip contentStyle={{ backgroundColor: '#111928', borderColor: 'rgba(255,255,255,0.1)' }} />
-                </PieChart>
-              </ResponsiveContainer>
+            <h3 className="text-lg font-semibold text-white mb-2 w-full text-center">Conversation Sentiment Breakdown</h3>
+            <p className="text-xs text-gray-400 mb-4 text-center">Distribution of positive/negative sentences</p>
+            <div className="h-48 w-full relative">
+              {pieData.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie 
+                      data={pieData} 
+                      innerRadius={45} 
+                      outerRadius={70} 
+                      paddingAngle={5} 
+                      dataKey="value" 
+                      stroke="none"
+                      labelLine={false}
+                      label={({ name, percent }) => percent > 0 ? `${(percent * 100).toFixed(0)}%` : ''}
+                    >
+                      {pieData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                      ))}
+                    </Pie>
+                    <RechartsTooltip contentStyle={{ backgroundColor: '#111928', borderColor: 'rgba(255,255,255,0.1)', color: 'white', borderRadius: '8px' }} />
+                    <Legend verticalAlign="bottom" height={24} iconType="circle" wrapperStyle={{ fontSize: '12px' }} />
+                  </PieChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="flex h-full items-center justify-center text-gray-500 italic text-sm">No sentence data</div>
+              )}
             </div>
           </div>
         </div>
