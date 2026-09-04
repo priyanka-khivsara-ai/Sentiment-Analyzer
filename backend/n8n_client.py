@@ -34,7 +34,7 @@ def call_n8n_webhook(text: str) -> Dict[str, Any]:
                     "Content-Type": "application/json"
                 },
                 json={
-                    "model": "llama-3.1-8b-instant",  # Updated to the new supported model
+                    "model": "openai/gpt-oss-20b",  # Updated to the new supported model
                     "response_format": { "type": "json_object" }, # Force structured output
                     "messages": [
                         {"role": "system", "content": system_prompt},
