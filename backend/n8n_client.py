@@ -34,7 +34,7 @@ def call_n8n_webhook(text: str) -> Dict[str, Any]:
                     "Content-Type": "application/json"
                 },
                 json={
-                    "model": "llama3-8b-8192",  # Fast, free open-source model
+                    "model": "llama-3.1-8b-instant",  # Updated to the new supported model
                     "response_format": { "type": "json_object" }, # Force structured output
                     "messages": [
                         {"role": "system", "content": system_prompt},
@@ -51,8 +51,17 @@ def call_n8n_webhook(text: str) -> Dict[str, Any]:
             return json.loads(llm_content)
             
         except Exception as e:
-            print(f"Groq API Error: {str(e)}")
-            raise HTTPException(status_code=502, detail="Failed to process conversation with live AI.")
+            error_msg = str(e)
+            print(f"Groq API Error: {error_msg}")
+            
+            # If it's an HTTP error, try to extract the Groq API response body
+            if isinstance(e, requests.exceptions.HTTPError) and e.response is not None:
+                try:
+                    error_msg += " | " + e.response.text
+                except:
+                    pass
+                    
+            raise HTTPException(status_code=502, detail=f"Failed to process with live AI: {error_msg}")
 
     # --- Fallback to n8n Webhook logic below ---
     webhook_url = os.getenv("N8N_WEBHOOK_URL")
