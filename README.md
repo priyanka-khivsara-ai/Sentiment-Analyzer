@@ -1,7 +1,7 @@
-# CallSense AI — Intelligent Conversation Intelligence Dashboard
+# Sentiment Analyzer — Intelligent Conversation Intelligence Dashboard
 
 ## Overview
-CallSense AI is a production-ready full-stack application designed to analyze customer service phone conversations. It extracts overall sentiment, sentence-level sentiment, emotional tone, and key performance indicators (KPIs) using an LLM via an n8n orchestration layer.
+Sentiment Analyzer is a production-ready full-stack application designed to analyze customer service phone conversations. It extracts overall sentiment, sentence-level sentiment, emotional tone, and key performance indicators (KPIs) using an LLM via an n8n orchestration layer.
 
 ## Architecture
 - **Frontend:** React, Vite, Tailwind CSS, Recharts (Deployed on Vercel/Netlify)

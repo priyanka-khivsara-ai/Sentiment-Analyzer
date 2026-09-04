@@ -33,7 +33,7 @@ class AnalysisResponse(BaseModel):
 # App Initialization
 # ==========================================
 app = FastAPI(
-    title="CallSense AI API",
+    title="Sentiment Analyzer API",
     description="Backend API for intelligent conversation analysis",
     version="1.0.0"
 )

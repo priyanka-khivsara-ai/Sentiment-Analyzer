@@ -39,7 +39,7 @@ function LoginScreen({ onLogin }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-ai-dark p-4">
       <div className="bg-ai-card backdrop-blur-glass p-8 rounded-2xl shadow-glass border border-white/10 max-w-md w-full">
-        <h1 className="text-3xl font-bold text-center mb-2 text-white">CallSense <span className="text-ai-cyan">AI</span></h1>
+        <h1 className="text-3xl font-bold text-center mb-2 text-white">Sentiment <span className="text-ai-cyan">Analyzer</span></h1>
         <p className="text-gray-400 text-center mb-6">Agentic Conversation Intelligence</p>
         
         {error && (
@@ -326,7 +326,7 @@ export default function App() {
       <header className="mb-10 flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            CallSense <span className="text-ai-cyan bg-ai-cyan/10 px-2 py-0.5 rounded text-sm">AI</span>
+            Sentiment <span className="text-ai-cyan bg-ai-cyan/10 px-2 py-0.5 rounded text-sm">Analyzer</span>
           </h1>
           <p className="text-gray-400 text-sm mt-1">Intelligence Dashboard</p>
         </div>

@@ -1,13 +1,13 @@
 @echo off
 echo ==========================================
-echo Starting CallSense AI Full-Stack App...
+echo Starting Sentiment Analyzer Full-Stack App...
 echo ==========================================
 
 echo [1/2] Starting FastAPI Backend on port 8000...
-start "CallSense Backend" cmd /k "cd backend && venv\Scripts\activate && uvicorn main:app --reload"
+start "Sentiment Analyzer Backend" cmd /k "cd backend && venv\Scripts\activate && uvicorn main:app --reload"
 
-echo [2/2] Starting React Frontend on port 3000...
-start "CallSense Frontend" cmd /k "cd frontend && npm run dev"
+echo [2/2] Starting React Frontend on port 5173...
+start "Sentiment Analyzer Frontend" cmd /k "cd frontend && npm run dev"
 
 echo.
 echo Both servers are launching in separate windows!
