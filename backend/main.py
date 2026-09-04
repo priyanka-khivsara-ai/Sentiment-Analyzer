@@ -23,6 +23,7 @@ class AnalysisResponse(BaseModel):
     conversation_summary: str
     sentences: List[SentenceSentiment]
     emotions: List[str]
+    action_items: List[str] = []  # Extra Creativity Feature
     kpis: Dict[str, Any]
 
 # ==========================================

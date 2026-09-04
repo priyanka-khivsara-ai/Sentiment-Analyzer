@@ -42,6 +42,10 @@ def call_n8n_webhook(text: str) -> Dict[str, Any]:
                 }
             ],
             "emotions": ["frustrated", "relieved", "grateful"],
+            "action_items": [
+                "Ship new upgraded router overnight",
+                "Apply $20 credit for downtime"
+            ],
             "kpis": {
                 "resolution_likelihood": "High",
                 "escalation_risk": "Low",

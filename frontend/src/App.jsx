@@ -143,29 +143,51 @@ export default function App() {
             <p className="text-gray-300 leading-relaxed bg-white/5 p-4 rounded-lg">
               {results.conversation_summary}
             </p>
-            
-            <h3 className="text-lg font-semibold text-white mt-6 mb-4 flex items-center gap-2">
-              <Zap size={18} className="text-ai-violet" /> Emotion Detection
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {results.emotions.map((em, i) => (
-                <span key={i} className="px-3 py-1 rounded-full bg-ai-violet/20 text-ai-violet text-sm border border-ai-violet/30 capitalize">
-                  {em}
-                </span>
-              ))}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <Zap size={18} className="text-ai-violet" /> Emotion Detection
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {results.emotions.map((em, i) => (
+                    <span key={i} className="px-3 py-1 rounded-full bg-ai-violet/20 text-ai-violet text-sm border border-ai-violet/30 capitalize shadow-neon">
+                      {em}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <CheckCircle size={18} className="text-green-400" /> Action Items / Next Steps
+                </h3>
+                <ul className="space-y-2">
+                  {(results.action_items || []).map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-gray-300 text-sm">
+                      <div className="mt-1 w-1.5 h-1.5 rounded-full bg-ai-cyan shrink-0"></div>
+                      {item}
+                    </li>
+                  ))}
+                  {(!results.action_items || results.action_items.length === 0) && (
+                    <li className="text-gray-500 italic text-sm">No action items detected.</li>
+                  )}
+                </ul>
+              </div>
             </div>
           </div>
 
           <div className="bg-ai-card p-6 rounded-xl shadow-glass border border-white/10 flex flex-col items-center justify-center">
-            <h3 className="text-lg font-semibold text-white mb-4 w-full text-left">Sentiment Visual</h3>
+            <h3 className="text-lg font-semibold text-white w-full text-left">Sentiment Visual</h3>
             <div className="h-48 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
-                  <Pie data={pieData} innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value" stroke="none">
+                  <Pie data={pieData} innerRadius={50} outerRadius={70} paddingAngle={5} dataKey="value" stroke="none">
                     {pieData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.fill} />
                     ))}
                   </Pie>
+                  <RechartsTooltip contentStyle={{ backgroundColor: '#111928', borderColor: 'rgba(255,255,255,0.1)' }} />
                 </PieChart>
               </ResponsiveContainer>
             </div>

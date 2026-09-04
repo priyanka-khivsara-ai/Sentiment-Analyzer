@@ -29,6 +29,9 @@
   "emotions": [
     "List of 1-4 emotions observed (e.g., frustrated, calm, confused, satisfied)"
   ],
+  "action_items": [
+    "List of any commitments, follow-ups, or actions promised during the call"
+  ],
   "kpis": {
     "resolution_likelihood": "High | Medium | Low",
     "escalation_risk": "High | Medium | Low",
