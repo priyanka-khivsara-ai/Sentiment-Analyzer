@@ -4,17 +4,57 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, L
 
 // Simple mockup for auth
 function LoginScreen({ onLogin }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (username === 'admin' && password === 'admin123') {
+      onLogin();
+    } else {
+      setError('Wrong credentials. Please try again.');
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-ai-dark p-4">
       <div className="bg-ai-card backdrop-blur-glass p-8 rounded-2xl shadow-glass border border-white/10 max-w-md w-full">
         <h1 className="text-3xl font-bold text-center mb-2 text-white">CallSense <span className="text-ai-cyan">AI</span></h1>
         <p className="text-gray-400 text-center mb-8">Agentic Conversation Intelligence</p>
-        <button 
-          onClick={onLogin}
-          className="w-full bg-glass-gradient border border-ai-cyan/30 text-ai-cyan hover:bg-ai-cyan hover:text-black font-semibold py-3 rounded-lg transition-all duration-300 shadow-neon"
-        >
-          Authenticate to Dashboard
-        </button>
+        
+        {error && (
+          <div className="mb-4 text-red-400 bg-red-400/10 p-3 rounded-lg border border-red-400/20 text-sm text-center">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div>
+            <input 
+              type="text" 
+              placeholder="Username" 
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-white focus:outline-none focus:border-ai-cyan transition-colors"
+            />
+          </div>
+          <div>
+            <input 
+              type="password" 
+              placeholder="Password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-white focus:outline-none focus:border-ai-cyan transition-colors"
+            />
+          </div>
+          <button 
+            type="submit"
+            className="w-full bg-glass-gradient border border-ai-cyan/30 text-ai-cyan hover:bg-ai-cyan hover:text-black font-semibold py-3 rounded-lg transition-all duration-300 shadow-neon mt-2"
+          >
+            Authenticate to Dashboard
+          </button>
+        </form>
       </div>
     </div>
   );
