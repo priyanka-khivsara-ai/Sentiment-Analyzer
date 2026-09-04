@@ -10,6 +10,9 @@
 
 <br />
 
+## ℹ️ About
+This project was developed to demonstrate the ability to seamlessly integrate modern frontend frameworks (React/Vite) with robust Python backends (FastAPI), while leveraging state-of-the-art Large Language Models (LLMs) to perform complex natural language processing tasks in real-time. The core philosophy of this project is **Clean Architecture**—ensuring strict separation of concerns, secure credential management, and predictable, strongly-typed data structures via Pydantic.
+
 ## 🌟 Overview
 **Sentiment Analyzer** is a production-ready, full-stack AI application designed to intelligently analyze customer service phone conversations. By utilizing state-of-the-art LLMs, it extracts deep insights from standard text transcripts and visualizes them on a modern glassmorphism dashboard.
 
