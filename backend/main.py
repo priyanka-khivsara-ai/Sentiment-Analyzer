@@ -2,6 +2,7 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
+from n8n_client import call_n8n_webhook
 
 # ==========================================
 # Pydantic Schemas for Structured Output
@@ -72,13 +73,19 @@ async def analyze_conversation(file: UploadFile = File(...)):
     if len(text) > 100000:  # ~100k characters is a safe limit for a coding round
         raise HTTPException(status_code=400, detail="File is too large. Maximum size is 100,000 characters.")
 
-    # TODO: In the next steps, we will implement the actual n8n orchestration call here.
-    # For now, we return a mock structured response to prove the architecture flow.
-    return AnalysisResponse(
-        overall_sentiment="neutral",
-        confidence=0.0,
-        conversation_summary="Analysis pending integration.",
-        sentences=[],
-        emotions=[],
-        kpis={}
-    )
+    # 5. Send to n8n AI Orchestration Layer
+    # The n8n client handles timeouts, network errors, and parses the JSON.
+    n8n_response = call_n8n_webhook(text)
+    
+    # 6. Validate AI Response
+    # By passing the raw dict into our Pydantic model, FastAPI automatically 
+    # validates that the LLM returned exactly the schema we requested.
+    try:
+        validated_data = AnalysisResponse(**n8n_response)
+        return validated_data
+    except Exception as e:
+        print(f"ERROR: AI Response validation failed. {str(e)}")
+        raise HTTPException(
+            status_code=502, 
+            detail="The AI analysis returned an unexpected format. Please try again."
+        )
