@@ -1,0 +1,11 @@
+Agent: Thank you for calling TechStream Support. My name is Alex. How can I help you today?
+Customer: Hi Alex, I'm calling because my internet has been dropping constantly for the last three days. It's incredibly frustrating because I work from home.
+Agent: I completely understand how frustrating that must be, especially when you rely on it for work. I apologize for the inconvenience. Let me pull up your account to see what's going on. Can I have your account number?
+Customer: Sure, it's 849-294-110.
+Agent: Thank you. I see the connection drops here in our logs. It looks like the modem you're using is an older model that might be failing under heavy load.
+Customer: Well, nobody told me it was too old. Do I have to pay for a new one?
+Agent: Not at all! Since it's our equipment, I can ship a brand new upgraded router to your house overnight, completely free of charge. I'll also issue a $20 credit to your account for the days you experienced downtime.
+Customer: Oh... wow. That's actually really helpful. Thank you, I appreciate that.
+Agent: You're very welcome! Is there anything else I can assist you with today?
+Customer: No, that covers it. Have a great day.
+Agent: You too! Thank you for choosing TechStream.
