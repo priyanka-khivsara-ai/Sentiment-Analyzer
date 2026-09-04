@@ -21,13 +21,13 @@ class SentenceSentiment(BaseModel):
     explanation: Optional[str] = None
 
 class AnalysisResponse(BaseModel):
-    overall_sentiment: str
-    confidence: float
-    conversation_summary: str
-    sentences: List[SentenceSentiment]
-    emotions: List[str]
+    overall_sentiment: str = "neutral"
+    confidence: float = 0.0
+    conversation_summary: str = "Summary not generated."
+    sentences: List[SentenceSentiment] = []
+    emotions: List[str] = []
     action_items: List[str] = []  # Extra Creativity Feature
-    kpis: Dict[str, Any]
+    kpis: Dict[str, Any] = {}
 
 # ==========================================
 # App Initialization
