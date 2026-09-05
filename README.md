@@ -48,8 +48,15 @@ Create a `.env` file inside the `/backend` folder and add your API key:
 GROQ_API_KEY=your_api_key_here
 ```
 
-### 2. Run the Application
-For Windows users, simply double-click the included `run.bat` file to automatically launch both the backend and frontend simultaneously!
+### Using Docker (Recommended)
+If you have Docker installed, you can launch the entire application (frontend + backend + AI orchestrator) with a single command:
+```bash
+docker-compose up --build
+```
+*The frontend will be available at `http://localhost:5173` and the backend at `http://localhost:8000`.*
+
+### Manual Startup
+For Windows users without Docker, simply double-click the included `run.bat` file to automatically launch both servers simultaneously!
 
 Alternatively, you can run them manually:
 ```bash
