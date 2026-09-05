@@ -57,6 +57,7 @@ def analyze_sentiment(state: GraphState) -> GraphState:
         llm = ChatGroq(
             model="openai/gpt-oss-120b", 
             temperature=0.1,
+            max_tokens=8000,
             api_key=groq_api_key
         )
         
