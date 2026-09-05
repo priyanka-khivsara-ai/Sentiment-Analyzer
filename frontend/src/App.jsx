@@ -264,23 +264,35 @@ export default function App() {
             <div className="h-48 w-full relative">
               {pieData.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
+                  <PieChart margin={{ top: 0, right: 0, bottom: 20, left: 0 }}>
                     <Pie 
                       data={pieData} 
-                      innerRadius={45} 
-                      outerRadius={70} 
+                      cx="50%"
+                      cy="45%"
+                      innerRadius={50} 
+                      outerRadius={75} 
                       paddingAngle={5} 
                       dataKey="value" 
                       stroke="none"
-                      labelLine={false}
-                      label={({ name, percent }) => percent > 0 ? `${(percent * 100).toFixed(0)}%` : ''}
+                      labelLine={true}
+                      label={({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+                        const RADIAN = Math.PI / 180;
+                        const radius = outerRadius * 1.2;
+                        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                        const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                        return percent > 0.05 ? (
+                          <text x={x} y={y} fill={pieData[index].fill} textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central" fontSize="14" fontWeight="bold">
+                            {`${(percent * 100).toFixed(0)}%`}
+                          </text>
+                        ) : null;
+                      }}
                     >
                       {pieData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.fill} />
                       ))}
                     </Pie>
                     <RechartsTooltip contentStyle={{ backgroundColor: '#111928', borderColor: 'rgba(255,255,255,0.1)', color: 'white', borderRadius: '8px' }} />
-                    <Legend verticalAlign="bottom" height={24} iconType="circle" wrapperStyle={{ fontSize: '12px' }} />
+                    <Legend verticalAlign="bottom" height={20} iconType="circle" wrapperStyle={{ fontSize: '13px', paddingTop: '10px' }} />
                   </PieChart>
                 </ResponsiveContainer>
               ) : (
