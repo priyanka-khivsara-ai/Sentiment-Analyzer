@@ -122,8 +122,8 @@ export default function App() {
     formData.append("file", file);
 
     try {
-      // Proxy intercepts /api and sends to FastAPI
-      const response = await fetch('/api/analyze', {
+      // Point directly to the live Render backend
+      const response = await fetch('https://sentiment-analyzer-x589.onrender.com/api/analyze', {
         method: 'POST',
         body: formData,
       });
