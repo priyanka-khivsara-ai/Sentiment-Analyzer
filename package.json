@@ -1,0 +1,7 @@
+{
+  "name": "sentiment-analyzer-deployment",
+  "private": true,
+  "scripts": {
+    "vercel-build": "cd frontend && npm install && npm run build && cd .. && cp -r frontend/dist dist"
+  }
+}
